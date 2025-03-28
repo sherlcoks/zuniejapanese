@@ -25,7 +25,7 @@ RUN composer install --optimize-autoloader --no-dev
 COPY --from=node-build /app/public/build /var/www/public/build
 
 # Cổng Railway yêu cầu
-EXPOSE 8080
+EXPOSE 9000
 
 # Start Laravel app
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=9000"]
