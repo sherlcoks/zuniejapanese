@@ -29,3 +29,13 @@ EXPOSE 9000
 
 # Start Laravel app
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=9000"]
+# Sử dụng image PHP + NodeJS để build frontend
+FROM node:18 as build-stage
+WORKDIR /app
+COPY . .
+RUN npm install && npm run prod
+
+# Copy files sang container chính
+FROM php:8.2-fpm
+WORKDIR /var/www/html
+COPY --from=build-stage /app/public /var/www/html/public
